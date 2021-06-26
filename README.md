@@ -5,7 +5,16 @@ If you haven't already, install https://docs.microsoft.com/en-us/cli/azure/insta
 > `az extension add --name azure-iot`
 
 ## Azure CLI deployment
-To deploy IoT Hub using Azure CLI, open Bash shell and navigate to **deploy/AzureCLI** folder. Open deploy.sh and change variables to fit your environhment. Default settings will create new Azure resource group called dev_iot in westeurope region. It will then create IoT Hub called dev-iothubjurainc in F1 (free) tier. Finally, it will create IoT device called iot_device_1 using default settings.
+To deploy IoT Hub using Azure CLI, open Bash shell and navigate to **deploy/AzureCLI** folder. Open deploy.sh and change variables to fit your environhment.
+
+Default settings will then ...
+<ul>
+<li>create new Azure resource group called dev_iot in westeurope region</li>
+<li>create IoT Hub called dev-iothubjurainc in F1 (free) tier</li>
+<li>create storage account with container</li>
+<li>create IoT Hub route with an endpoint</li>
+<li>create IoT device called iot_device_1 using default settings</li>
+</ul>
 
 ## Deployment using Bicep template
 To deploy IoT Hub using Bicep template, open Bash shell and navigate to **deploy/Bicep** folder.

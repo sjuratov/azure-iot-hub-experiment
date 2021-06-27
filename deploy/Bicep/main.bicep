@@ -58,10 +58,19 @@ module module_blob_storage_container './blob-storage-container.bicep' = {
 // Provision IoT Hub
 @description('Provide IoT Hub name sufix.')
 param iothubSuffix string = 'iothubjurainc'
+param partitionCount int = 2
+param endpointName string = 'iot_endpoint_from_device_to_storage_account_container'
+param iotRouteName string = 'iot_route_from_device_to_storage_account_container'
 module module_iot_hub './iot-hub.bicep' = {
   params: {
     env: env
     iotSuffix: iothubSuffix
+    partitionCount: partitionCount
+    storageAccountName: module_blob_storage_account.outputs.storageName
+    storageAccount: module_blob_storage_account.outputs.storage
+    containerName: module_blob_storage_container.outputs.blobName
+    endpointName: endpointName
+    iotRouteName: iotRouteName
   }
   name: 'module_iot_hub'
   scope: resourceGroup(iotRg.name)

@@ -31,6 +31,30 @@ resource iotRg 'Microsoft.Resources/resourceGroups@2020-06-01' = {
   location: location
 }
 
+// Provision storage account where IoT messages will be stored
+@description('Provide storage account name.')
+param iotStorageAccountName string = 'iotstoragejurainc'
+module module_blob_storage_account './blob-storage-account.bicep' = {
+  params: {
+    env: env
+    storageAccountName: iotStorageAccountName
+  }
+  name: 'module_blob_storage_account'
+  scope: resourceGroup(iotRg.name)
+}
+
+// Create blob container where IoT messages will be stored
+@description('Provide blob container name.')
+param iotContainerName string = 'iotresults'
+module module_blob_storage_container './blob-storage-container.bicep' = {
+  params: {
+    storageAccountName: module_blob_storage_account.outputs.storageName
+    containerName: iotContainerName
+  }
+  name: 'module_blob_storage_container'
+  scope: resourceGroup(iotRg.name)
+}
+
 // Provision IoT Hub
 @description('Provide IoT Hub name sufix.')
 param iothubSuffix string = 'iothubjurainc'
